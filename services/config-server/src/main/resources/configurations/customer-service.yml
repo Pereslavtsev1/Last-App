@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      username: root
+      password: root
+      host: localhost
+      port: 27017
+      authentication-database: admin
+jpa:
+  generate-ddl: true
+  hibernate:
+    ddl-auto: update
+server:
+  port: 8092

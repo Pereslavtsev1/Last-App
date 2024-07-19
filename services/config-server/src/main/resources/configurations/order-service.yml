@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    password: root
+    username: root
+    jpa:
+      hibernate:
+        ddl-auto: update
+      generate-ddl: true
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: orderConfirmation:org.example.orderservice.orderProducer.dtos.OrderConfirmation
+
+application:
+  config:
+    customer-url: http://localhost:8092/api/v1/customers
+    product-url: http://localhost:8093/api/v1/products
+    payment-url: http://localhost:8095/api/v1/payments
+server:
+  port: 8094

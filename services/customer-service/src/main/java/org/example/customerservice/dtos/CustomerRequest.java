@@ -13,11 +13,11 @@ public record CustomerRequest(
         @NotBlank(message = "First name must not be blank")
         @NotNull(message = "First name cannot be empty")
         @Size(min = 2, max = 50, message = "First name length must be between 2 and 50")
-        String firstName,
+        String firstname,
         @NotBlank(message = "Last name must not be blank")
         @NotNull(message = "Last name cannot be empty")
         @Size(min = 2, max = 50, message = "Last name length must be between 2 and 50")
-        String lastName,
+        String lastname,
         @NotBlank(message = "Email cannot be empty")
         @Email
         String email,

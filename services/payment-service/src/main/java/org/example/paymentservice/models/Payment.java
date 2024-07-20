@@ -26,8 +26,8 @@ public class Payment {
     private PaymentMethod paymentMethod;
     private Long orderId;
     @CreatedDate
-    @Column(updatable = false, nullable = false, insertable = false)
-    private LocalDateTime createAt;
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt;
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updateAt;

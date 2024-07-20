@@ -30,8 +30,8 @@ public class CustomerService {
         return customerRepository.save(opCustomer).getId();
     }
     private void mergeCustomer(Customer customer, CustomerRequest request) {
-        if (StringUtils.isNotBlank(request.firstName())) {
-            customer.setFirstName(request.firstName());
+        if (StringUtils.isNotBlank(request.firstname())) {
+            customer.setFirstName(request.firstname());
         }
         if (StringUtils.isNotBlank(request.email())) {
             customer.setEmail(request.email());

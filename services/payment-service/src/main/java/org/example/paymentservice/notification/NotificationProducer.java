@@ -3,7 +3,7 @@ package org.example.paymentservice.notification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +16,9 @@ public class NotificationProducer {
     private final KafkaTemplate<String, PaymentNotification> kafkaTemplate;
 
     public void sendNotification(PaymentNotification paymentNotification) {
-        kafkaTemplate.send(MessageBuilder.withPayload(paymentNotification)
-                .setHeader(KafkaHeaders.TOPIC,"payment-topic").build());
+        Message<PaymentNotification> message = MessageBuilder.withPayload(paymentNotification)
+                .setHeader("kafka-topic", "payment-topic")
+                .build();
         log.info("Notification sent to payment topic");
     }
 }

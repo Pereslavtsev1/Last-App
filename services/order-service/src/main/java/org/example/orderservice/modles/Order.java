@@ -13,17 +13,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Getter
 @Setter
+@Entity
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 @Table(name = "customer_order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Long id;
     private String reference;
     private BigDecimal totalAmount;
@@ -32,10 +34,10 @@ public class Order {
     private String customerId;
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines = new ArrayList<>();
-    @CreatedDate()
-    @Column(nullable = false,updatable = false,insertable = false)
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
-    @LastModifiedDate()
+    @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updatedAt;
 }

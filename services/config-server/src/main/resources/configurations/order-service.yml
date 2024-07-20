@@ -3,10 +3,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/order
     password: root
     username: root
-    jpa:
-      hibernate:
-        ddl-auto: update
-      generate-ddl: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
 
   kafka:
     producer:
@@ -18,8 +19,8 @@ spring:
 
 application:
   config:
-    customer-url: http://localhost:8092/api/v1/customers
-    product-url: http://localhost:8093/api/v1/products
-    payment-url: http://localhost:8095/api/v1/payments
+    customer-url: http://localhost:8222/api/v1/customers
+    payment-url: http://localhost:8222/api/v1/payments
+    product-url: http://localhost:8222/api/v1/products
 server:
   port: 8094

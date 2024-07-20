@@ -1,5 +1,6 @@
 package org.example.orderservice.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.orderservice.customer.CustomerClient;
 import org.example.orderservice.dtos.order.OrderRequest;
@@ -28,6 +29,7 @@ public class OrderService {
     private final OrderProducer orderProducer;
     private final PaymentClient paymentClient;
 
+    @Transactional
     public Long createOrder(OrderRequest request) {
         var customer = customerClient.findCustomerById(request.customerId())
                 .orElseThrow(() -> new CustomerNotFoundException(

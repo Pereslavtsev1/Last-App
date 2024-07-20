@@ -10,6 +10,8 @@ import org.example.orderservice.exceptions.OrderNotFoundException;
 import org.example.orderservice.mappers.OrderMapper;
 import org.example.orderservice.orderProducer.OrderProducer;
 import org.example.orderservice.orderProducer.dtos.OrderConfirmation;
+import org.example.orderservice.payment.PaymentClient;
+import org.example.orderservice.payment.PaymentRequest;
 import org.example.orderservice.product.dtos.ProductClient;
 import org.example.orderservice.repositories.OrderRepository;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
+
     public Long createOrder(OrderRequest request) {
         var customer = customerClient.findCustomerById(request.customerId())
                 .orElseThrow(() -> new CustomerNotFoundException(
@@ -42,13 +46,19 @@ public class OrderService {
             );
         }
 
+        paymentClient.payment(new PaymentRequest(
+                request.totalAmount(),
+                request.paymentMethod(),
+                order.getId(),
+                order.getReference(),
+                customer));
 
         orderProducer.sendOrderConfirmation(OrderConfirmation.builder()
-                        .orderReference(request.reference())
-                        .paymentMethod(request.paymentMethod())
-                        .totalAmount(request.totalAmount())
-                        .customer(customer)
-                        .products(purchaseProducts)
+                .orderReference(request.reference())
+                .paymentMethod(request.paymentMethod())
+                .totalAmount(request.totalAmount())
+                .customer(customer)
+                .products(purchaseProducts)
                 .build());
         return order.getId();
     }

@@ -18,6 +18,7 @@ public class OrderProducer {
         Message<OrderConfirmation> message = MessageBuilder.withPayload(orderConfirmation)
                 .setHeader("kafka-topic", "order-topic")
                 .build();
+        log.info("Sending message to order-topic");
         kafkaTemplate.send(message);
     }
 }

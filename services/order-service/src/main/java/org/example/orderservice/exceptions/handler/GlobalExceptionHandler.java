@@ -1,6 +1,7 @@
 package org.example.orderservice.exceptions.handler;
 
-import org.example.customerservice.exceptions.BaseException;
+
+import org.example.orderservice.exceptions.BaseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
